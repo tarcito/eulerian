@@ -12,11 +12,11 @@ eh_Digrafo ((Set xs) , (Set (y:ys))) = ( exists (snd y, fst y) (Set ys)) && eh_D
 -- To Do ...
 
 --eh_Conexo ::  (Eq a) => (Set a, Set (a, a)) -> Bool
-eh_Conexo ([],[]) = True
-eh_Conexo ((x:xs),ys) = filter (\z -> (fst z == x))  
+eh_Conexo ((Set []), (Set [])) = True
+eh_Conexo ((Set (x:xs)), (Set (y:ys)) = filter (\z -> (fst z == x))  
 
 -- eh_Euleriano ::  (Eq a) => (Set a, Set (a, a)) -> Bool
-eh_Euleriano ((x:xs), ys) =  ((length (filter (\z -> fst z == x))) >= 2) &&  
+eh_Euleriano ((Set (x:xs)),(Set ys)) =  ((length (filter (\z -> fst z == x))) >= 2) &&  
 
 
 -}
