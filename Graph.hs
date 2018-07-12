@@ -58,10 +58,6 @@ ord3 x [] v = v
 ord3 (x, v) (y:ys) k = if exists (snd y) (sEntrada (removeEdge y (x, v))) then (ord3 (removeEdge y (x, v)) ys (addr (snd y) k)) else ord3 (removeEdge y (x, v)) ys k
 
 
+-- OBS: Adiciona os vertices e depois as arestas
 g = addEdges [(1,2),(1,3),(2,4),(2,6),(3,2),(3,4),(3,6),(3,8),(4,5),(4,6),(5,7),(6,8),(6,9),(6,5),(6,9),(7,9),(8,7),(8,9)] $ addVertices [1,2,3,4,5,6,7,8,9] $ graph
-
--- Adiciona os vertices e depois as arestas
-
-g' = addEdges [(1,2),(2,1),(1,5),(5,1),(2,3),(3,2),(3,4),(4,3),(4,5),(5,4)] (addVertices [1,2,3,4,5] graph)
-
 

@@ -18,3 +18,12 @@ eh_Conexo ((Set (x:xs)), (Set ys)) = ((length (filter (\z -> (fst z == x)) ys)) 
 eh_Euleriano ((Set (x:xs)),(Set ys)) =  ((length (filter (\z -> fst z == x))) >= 2) &&  
 
 
+
+
+
+
+
+
+
+-- Exemplo Grafo euleriano simples
+g = addEdges [(1,2),(2,1),(1,5),(5,1),(2,3),(3,2),(3,4),(4,3),(4,5),(5,4)] (addVertices [1,2,3,4,5] graph)
