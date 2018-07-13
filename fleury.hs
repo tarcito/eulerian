@@ -12,20 +12,21 @@ eh_Conexo ((Set []), (Set ys)) = True
 eh_Conexo ((Set (x:xs)), (Set ys)) = (((length (filter (\z -> (fst z == x)) ys)) > 0 ) ||  ((length (filter (\z -> (snd z == x)) ys)) > 0 )) && 
                                       eh_Conexo ((Set xs), (Set ys) )
 
-
 eh_Euleriano ::  (Eq a) => (Set a, Set (a, a)) -> Bool
 eh_Euleriano ((Set []), (Set ys)) = True
-eh_Euleriano ((Set (x:xs)),(Set ys)) =  ((length (filter (\z -> fst z == x) ys)) >= 2) &&  ((length (filter (\z -> snd z == x) ys)) >= 2) && 
+eh_Euleriano ((Set (x:xs)),(Set ys)) =  (mod (length (filter (\z -> fst z == x) ys)) 2 == 0) &&  (mod (length (filter (\z -> snd z == x) ys)) 2 == 0) && 
               eh_Euleriano ((Set xs), (Set ys))
 
 
 -- To Do ...
 
 --eulerian_Path :: (Eq a) => (Set a, Set (a, a)) -> [a]
-eulerian_Path ((Set []), (Set [])) = []
-eulerian_Path ((Set xs), (Set [])) = []
---eulerian_Path ((Set (x:xs)), (Set (y:ys))) = 
+eulerian_Path grafo |((eh_Conexo grafo) && (eh_Digrafo grafo) && (eh_Euleriano)) = eulerian_Path' grafo
+                    |otherwise = error "Grafo não euleriano"
 
+eulerian_Path' = ((Set []), (Set [])) = []
+eulerian_Path = ((Set xs), (Set [])) = []
+eulerian_Path = ((Set (x:xs)), (Set (y:ys))) = 
 
 
 
