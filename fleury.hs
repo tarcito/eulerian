@@ -21,9 +21,10 @@ eh_Euleriano ((Set (x:xs)),(Set ys)) =  ((length (filter (\z -> fst z == x) ys))
 
 -- To Do ...
 
---eulerian_Path :: (Eq a) => (Set a, Set (a, a)) -> Set a
-eulerian_Path ((Set []), (Set [])) = Set []
-eulerian_Path ((Set (x:xs)), (Set (y:ys))) = 
+--eulerian_Path :: (Eq a) => (Set a, Set (a, a)) -> [a]
+eulerian_Path ((Set []), (Set [])) = []
+eulerian_Path ((Set xs), (Set [])) = []
+--eulerian_Path ((Set (x:xs)), (Set (y:ys))) = 
 
 
 
