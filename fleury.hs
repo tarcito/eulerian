@@ -9,7 +9,7 @@ eh_Digrafo ((Set xs) , (Set (y:ys))) = ( exists (snd y, fst y) (Set ys)) && eh_D
 
 eh_Conexo ::  (Eq a) => (Set a, Set (a, a)) -> Bool
 eh_Conexo ((Set []), (Set ys)) = True
-eh_Conexo ((Set (x:xs)), (Set ys)) = ((length (filter (\z -> (fst z == x)) ys)) > 0 ) &&  ((length (filter (\z -> (snd z == x)) ys)) > 0 ) && 
+eh_Conexo ((Set (x:xs)), (Set ys)) = (((length (filter (\z -> (fst z == x)) ys)) > 0 ) ||  ((length (filter (\z -> (snd z == x)) ys)) > 0 )) && 
                                       eh_Conexo ((Set xs), (Set ys) )
 
 
@@ -21,8 +21,9 @@ eh_Euleriano ((Set (x:xs)),(Set ys)) =  ((length (filter (\z -> fst z == x) ys))
 
 -- To Do ...
 
---fleury_Path :: (Eq a) => (Set a, Set (a, a)) -> Set a
-
+--eulerian_Path :: (Eq a) => (Set a, Set (a, a)) -> Set a
+eulerian_Path ((Set []), (Set [])) = Set []
+eulerian_Path ((Set (x:xs)), (Set (y:ys))) = 
 
 
 
