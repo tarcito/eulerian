@@ -1,6 +1,6 @@
 {-
   implementação do Algoritmo de Fleury com paradgma funcional (Haskell)
-  authors: Aleksandro e Tácito
+  authors: Aleksandro e Tárcito
 -}
 
 import Graph
