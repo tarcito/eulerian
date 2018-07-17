@@ -1,4 +1,7 @@
---implementação do Algoritmo de Fleury com paradgma funcional
+{-
+  implementação do Algoritmo de Fleury com paradgma funcional (Haskell)
+  authors: Aleksandro e Tácito
+-}
 
 import Graph
 import Set
