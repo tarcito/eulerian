@@ -1,6 +1,6 @@
 {-
-  implementação do Algoritmo de Fleury com paradgma funcional (Haskell)
-  authors: Aleksandro e Tárcito
+  implementação do Algoritmo de checa a existencia de grafo euleriano, com paradgma funcional (Haskell)
+  authors: Alekssandro e Tárcito
 -}
 
 import Graph
@@ -21,6 +21,11 @@ eh_Conexo ((Set (x:xs)), (Set ys)) = (((length (filter (\z -> (fst z == x)) ys))
 eh_Ponte :: Eq a => (a, a) -> (Set a, Set (a, a)) -> Bool 
 eh_Ponte (a, b) ((Set xs), (Set ys)) = not (eh_Conexo ((Set xs), (Set (filter (\z -> (z /= (b, a)) || (z /= (a, b))) ys))) )
 
+
+eh_Semi_Euleriano :: Eq a => (Set a, Set (a, a)) -> Bool
+eh_Semi_Euleriano ((Set []), (Set ys)) = True
+eh_Semi_Euleriano ((Set (x:xs)),(Set ys)) =  (mod (length (filter (\z -> fst z == x) ys)) 2 == 0) &&  (mod (length (filter (\z -> snd z == x) ys)) 2 == 0) && 
+              eh_Euleriano ((Set xs), (Set ys))
 
 eh_Euleriano ::  Eq a => (Set a, Set (a, a)) -> Bool
 eh_Euleriano ((Set []), (Set ys)) = True
