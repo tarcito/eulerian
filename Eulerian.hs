@@ -26,8 +26,8 @@ eh_Semi_Euleriano :: Eq a => (Set a, Set (a, a)) -> Bool
 eh_Semi_Euleriano ((Set xs), (Set ys)) = eh_Semi_Euleriano' 0 ((Set (x:xs)),(Set ys))
 
 eh_Semi_Euleriano' z ((Set []), (Set ys)) = z == 2
-eh_Semi_Euleriano' z ((Set (x:xs)),(Set ys)) =  if( ((length (filter (\z -> fst z == x) ys)) == 1) ||  ((length (filter (\z -> snd z == x) ys)) == 1) ) then eh_eh_Semi_Euleriano' z+1 ((Set xs), (Set ys))
-              else eh_Semi_Euleriano z ((Set xs), (Set ys))
+eh_Semi_Euleriano' z ((Set (x:xs)),(Set ys)) =  if( ((length (filter (\z -> fst z == x) ys)) == 1) ||  ((length (filter (\z -> snd z == x) ys)) == 1) ) then eh_Semi_Euleriano' (z+1) ((Set xs), (Set ys))
+              else eh_Semi_Euleriano' z ((Set xs), (Set ys))
 
 eh_Euleriano ::  Eq a => (Set a, Set (a, a)) -> Bool
 eh_Euleriano ((Set []), (Set ys)) = True
