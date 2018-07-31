@@ -22,7 +22,7 @@ eh_Ponte (a, b) ((Set xs), (Set ys)) = not (eh_Conexo ((Set xs), (Set (filter (\
 
 -- To Do ...
 eh_Semi_Euleriano :: Eq a => (Set a, Set (a, a)) -> Bool
-eh_Semi_Euleriano ((Set xs), (Set ys)) = eh_Semi_Euleriano' 0 ((Set (x:xs)),(Set ys))
+eh_Semi_Euleriano ((Set xs), (Set ys)) = eh_Semi_Euleriano' 0 ((Set xs),(Set ys))
 
 eh_Semi_Euleriano' z ((Set []), (Set ys)) = z == 2
 eh_Semi_Euleriano' z ((Set (x:xs)),(Set ys)) =  if( ((length (filter (\z -> fst z == x) ys)) == 1) ||  ((length (filter (\z -> snd z == x) ys)) == 1) ) then eh_Semi_Euleriano' (z+1) ((Set xs), (Set ys))
