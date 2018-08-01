@@ -26,20 +26,14 @@ eh_Ponte (a, b) ((Set xs), (Set ys)) = not (eh_Conexo ((Set xs), (Set (filter (\
 
 -- verifica se no grafo de entrada contém um caminho euleriano (tem exatamente dois vertices com grau impar, e todos outros com grau par)
 eh_Semi_Euleriano :: Eq a => (Set a, Set (a, a)) -> Bool
-eh_Semi_Euleriano ((Set xs), (Set ys)) =  ( eh_Conexo ((Set xs),(Set ys)) ) && ( eh_Semi_Euleriano' 0 [] ((Set xs),(Set ys)) )
+eh_Semi_Euleriano ((Set xs), (Set ys)) = ( eh_Conexo ((Set xs),(Set ys)) ) && ( eh_Semi_Euleriano' 0 0 xs ((Set xs),(Set ys)) )
 
 -- To Do ...
 
--- função auxiliar que verifica se existe um caminho euleriano, contando os vertices de grau impar e ao mesmo tempo formando a lista com os vertices de grau par, que possivelmente contém um caminho euleriano
-eh_Semi_Euleriano' z zs ((Set []), (Set ys)) = (z == 2) && eh_Euleriano2 ((Set zs), (Set ys))
-eh_Semi_Euleriano' z zs ((Set (x:xs)),(Set ys)) =  if( ((mod (length (filter (\z -> fst z == x) ys)) 2) == 1) ||  ((mod (length (filter (\z -> snd z == x) ys)) 2) == 1) ) then eh_Semi_Euleriano' (z+1) zs ((Set xs), (Set ys))
-              else eh_Semi_Euleriano' z (x:zs) ((Set xs), (Set ys))
-
-eh_Euleriano2 ::  Eq a => (Set a, Set (a, a)) -> Bool
-eh_Euleriano2 ((Set []), (Set ys)) = True
-eh_Euleriano2 ((Set (x:xs)),(Set ys)) =  ((mod (length (filter (\z -> fst z == x) ys)) 2 == 0) || (mod (length (filter (\z -> snd z == x) ys)) 2 == 0)) && 
-              eh_Euleriano2 ((Set xs), (Set ys))
-
+-- função auxiliar que verifica se existe um caminho ou trilha euleriana, contando os vertices de grau impar e de grau par
+eh_Semi_Euleriano' t z zs ((Set []), (Set ys)) = if(z == 0) then False else if (z == 2) then ((length zs) == (z+t)) else False
+eh_Semi_Euleriano' t z zs ((Set (x:xs)),(Set ys)) =  if( ((mod (length [ a | a <- (filter (\z -> fst z == x) ys), elem (snd a) zs ]) 2) == 1) ||  ((mod (length [ b | b <- (filter (\z -> snd z == x) ys), elem (fst b) zs ]) 2) == 1) ) then eh_Semi_Euleriano' t (z+1) zs ((Set xs), (Set ys))
+              else if( ((mod (length [ a | a <- (filter (\z -> fst z == x) ys), elem (snd a) zs ]) 2) == 0) || ((mod (length [ b | b <- (filter (\z -> snd z == x) ys), elem (fst b) zs ]) 2) == 0)) then eh_Semi_Euleriano' (t+1) z zs ((Set xs), (Set ys)) else eh_Semi_Euleriano' t z zs ((Set xs), (Set ys))
 
 -- verifica se o grafo de entrada é um circuito euleriano (todos vertices tiverem grau par)
 eh_Euleriano ::  Eq a => (Set a, Set (a, a)) -> Bool
@@ -47,7 +41,7 @@ eh_Euleriano ((Set xs),(Set ys)) = ( eh_Conexo ((Set xs),(Set ys)) ) && ( eh_Eul
 
 -- função auxiliar que verifica se o grafo é euleriano, checando se todos vertices tem grau par
 eh_Euleriano' zs ((Set []), (Set ys)) = True
-eh_Euleriano' zs ((Set (x:xs)),(Set ys)) =  ((mod (length [ a | a <- (filter (\z -> fst z == x) ys), elem (snd a) zs ]) 2 == 0) || (mod (length [ b | b <- (filter (\z -> snd z == x) ys), elem (fst b) zs ]) 2 == 0)) && 
+eh_Euleriano' zs ((Set (x:xs)),(Set ys)) =  (((mod (length [ a | a <- (filter (\z -> fst z == x) ys), elem (snd a) zs ]) 2) == 0) || ((mod (length [ b | b <- (filter (\z -> snd z == x) ys), elem (fst b) zs ]) 2) == 0)) && 
               eh_Euleriano' zs ((Set xs), (Set ys))
 
 -- retorna uma lista de tuplas no formato (vertice, grau)
@@ -81,5 +75,5 @@ g1 = addEdges [(1,2),(2,1),(1,5),(5,1),(2,3),(3,2),(3,4),(4,3),(4,5),(5,4)] (add
 -- Exemplo Grafo semi-euleriano simples
 g2 = addEdges [(1,2),(1,3),(2,1),(1,5),(5,1),(1,6),(6,1),(2,3),(3,1),(3,2),(3,4),(4,3),(3,7),(7,3),(4,5),(5,4)] (addVertices [1,2,3,4,5,6,7] graph)
 
-
-g3 = addEdges [(1,2),(2,1),(2,3),(3,2),(3,4),(4,3)] (addVertices [1,2,3,4] graph)
+-- Exemplo Grafo não euleriano
+g3 = addEdges [(1,2),(2,1),(2,3),(3,2)] (addVertices [1,2,3,4] graph)
