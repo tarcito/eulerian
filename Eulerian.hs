@@ -11,7 +11,6 @@ eh_Digrafo :: Eq a => (Set a, Set (a, a)) -> Bool
 eh_Digrafo ((Set xs) , (Set [])) = True
 eh_Digrafo ((Set xs) , (Set (y:ys))) = ( exists (snd y, fst y) (Set ys)) && eh_Digrafo ((Set xs) , Set (filter ( /= (snd y, fst y)) ys))
 
-
 eh_Conexo :: Eq a => (Set a, Set (a, a)) -> Bool
 eh_Conexo ((Set []), (Set ys)) = True
 eh_Conexo ((Set (x:xs)), (Set ys)) = (((length (filter (\z -> (fst z == x)) ys)) > 0 ) ||  ((length (filter (\z -> (snd z == x)) ys)) > 0 )) && 
@@ -25,11 +24,11 @@ eh_Semi_Euleriano ((Set xs), (Set ys)) = eh_Semi_Euleriano' 0 [] ((Set xs),(Set 
 
 eh_Semi_Euleriano' z zs ((Set []), (Set ys)) = (z == 2) && eh_Euleriano ((Set zs), (Set ys))
 eh_Semi_Euleriano' z zs ((Set (x:xs)),(Set ys)) =  if( ((length (filter (\z -> fst z == x) ys)) == 1) ||  ((length (filter (\z -> snd z == x) ys)) == 1) ) then eh_Semi_Euleriano' (z+1) zs ((Set xs), (Set ys))
-              else eh_Semi_Euleriano' z (x:zs) ((Set xs), (Set ys))
+              else eh_Semi_Euleriano' z (zs++[x]) ((Set xs), (Set ys))
 
 eh_Euleriano ::  Eq a => (Set a, Set (a, a)) -> Bool
 eh_Euleriano ((Set []), (Set ys)) = True
-eh_Euleriano ((Set (x:xs)),(Set ys)) =  (mod (length (filter (\z -> fst z == x) ys)) 2 == 0) &&  (mod (length (filter (\z -> snd z == x) ys)) 2 == 0) && 
+eh_Euleriano ((Set (x:xs)),(Set ys)) =  ((mod (length (filter (\z -> fst z == x) ys)) 2 == 0) || (mod (length (filter (\z -> snd z == x) ys)) 2 == 0)) && 
               eh_Euleriano ((Set xs), (Set ys))
 
 grau_Vertices :: Eq a => (Set a, Set (a, a)) -> [(a, Int)]
@@ -59,4 +58,4 @@ eulerian_Path' ((Set (x:xs)), (Set ys)) |((length (arestas x ys)) > 1) = Nothing
 g1 = addEdges [(1,2),(2,1),(1,5),(5,1),(2,3),(3,2),(3,4),(4,3),(4,5),(5,4)] (addVertices [1,2,3,4,5] graph)
 
 -- Exemplo Grafo semi-euleriano simples
-g2 = addEdges [(1,2),(1,3),(2,1),(1,5),(5,1),(1,7),(7,1),(2,3),(3,1),(3,2),(3,4),(4,3),(3,7),(7,3),(4,5),(5,4)] (addVertices [1,2,3,4,5,6,7] graph)
+g2 = addEdges [(1,2),(1,3),(2,1),(1,5),(5,1),(1,6),(6,1),(2,3),(3,1),(3,2),(3,4),(4,3),(3,7),(7,3),(4,5),(5,4)] (addVertices [1,2,3,4,5,6,7] graph)
