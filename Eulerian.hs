@@ -49,7 +49,7 @@ grau_Vertices :: Eq a => (Set a, Set (a, a)) -> [(a, Int)]
 grau_Vertices ((Set []), (Set ys)) = []
 grau_Vertices ((Set (x:xs)),(Set ys)) = (x, (length (filter (\z -> fst z == x) ys)) ) : grau_Vertices ((Set xs),(Set ys)) 
 
-
+-- Exemplos
 
 -- Exemplo Grafo euleriano simples
 g1 = addEdges [(1,2),(2,1),(1,5),(5,1),(2,3),(3,2),(3,4),(4,3),(4,5),(5,4)] (addVertices [1,2,3,4,5] graph)
@@ -57,13 +57,14 @@ g1 = addEdges [(1,2),(2,1),(1,5),(5,1),(2,3),(3,2),(3,4),(4,3),(4,5),(5,4)] (add
 -- Exemplo Grafo semi-euleriano simples
 g2 = addEdges [(1,2),(1,3),(2,1),(1,5),(5,1),(1,6),(6,1),(2,3),(3,1),(3,2),(3,4),(4,3),(3,7),(7,3),(4,5),(5,4)] (addVertices [1,2,3,4,5,6,7] graph)
 
--- Exemplo Grafo não euleriano
-g3 = addEdges [(1,2),(2,1),(2,3),(3,2)] (addVertices [1,2,3,4] graph)
+-- Exemplo Grafo não euleriano (desconectado)
+g3 = addEdges [(1,2),(2,1),(3,4),(4,3)] (addVertices [1,2,3,4] graph)
 
+-- Exemplo Grafo não euleriano (vertice '3' tem grau 3 )
+g4 = addEdges [(1,2),(2,1),(2,3),(3,2),(3,4),(4,3),(3,5),(5,3)] (addVertices [1,2,3,4,5] graph)
 
-
-
-
+-- Exemplo grafo euleriano simples com char
+g5 = addEdges [('a','b'),('b','a'),('a','e'),('e','a'),('b','c'),('c','b'),('c','d'),('d','c'),('d','e'),('e','d')] (addVertices ['a','b','c','d','e'] graph)
 
 {--
 -- To Do ...
