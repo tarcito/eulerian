@@ -50,6 +50,21 @@ grau_Vertices ((Set []), (Set ys)) = []
 grau_Vertices ((Set (x:xs)),(Set ys)) = (x, (length (filter (\z -> fst z == x) ys)) ) : grau_Vertices ((Set xs),(Set ys)) 
 
 
+
+-- Exemplo Grafo euleriano simples
+g1 = addEdges [(1,2),(2,1),(1,5),(5,1),(2,3),(3,2),(3,4),(4,3),(4,5),(5,4)] (addVertices [1,2,3,4,5] graph)
+
+-- Exemplo Grafo semi-euleriano simples
+g2 = addEdges [(1,2),(1,3),(2,1),(1,5),(5,1),(1,6),(6,1),(2,3),(3,1),(3,2),(3,4),(4,3),(3,7),(7,3),(4,5),(5,4)] (addVertices [1,2,3,4,5,6,7] graph)
+
+-- Exemplo Grafo não euleriano
+g3 = addEdges [(1,2),(2,1),(2,3),(3,2)] (addVertices [1,2,3,4] graph)
+
+
+
+
+
+
 {--
 -- To Do ...
 depth_First_Search ((Set []), (Set ys)) = [] 
@@ -68,12 +83,3 @@ eulerian_Path' ((Set (x:xs)), (Set ys)) |((length (arestas x ys)) > 1) = Nothing
    where arestas  v as = filter (\y -> fst y == v) as
          all_Aresta v as = (arestas v as) ++ (filter (\y -> snd y == v) as) 
 --}
-
--- Exemplo Grafo euleriano simples
-g1 = addEdges [(1,2),(2,1),(1,5),(5,1),(2,3),(3,2),(3,4),(4,3),(4,5),(5,4)] (addVertices [1,2,3,4,5] graph)
-
--- Exemplo Grafo semi-euleriano simples
-g2 = addEdges [(1,2),(1,3),(2,1),(1,5),(5,1),(1,6),(6,1),(2,3),(3,1),(3,2),(3,4),(4,3),(3,7),(7,3),(4,5),(5,4)] (addVertices [1,2,3,4,5,6,7] graph)
-
--- Exemplo Grafo não euleriano
-g3 = addEdges [(1,2),(2,1),(2,3),(3,2)] (addVertices [1,2,3,4] graph)
